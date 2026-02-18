@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <title>Acquisto Biglietto</title>
+</head>
+
+<body>
+
+<nav th:replace="~{navbar :: navbar('Acquista Biglietto')}"></nav>
+
+<div class="container mt-4">
+
+    <!-- Titolo evento -->
+    <h2 class="mb-3">
+        Acquisto biglietto per:
+        <span th:text="${events.name}"></span>
+    </h2>
+
+    <p>
+        <strong>Data:</strong>
+        <span th:text="${events.date}"></span> |
+        <strong>Città:</strong>
+        <span th:text="${events.city}"></span>
+    </p>
+
+    <hr/>
+
+    <!-- Messaggio errore -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- FORM -->
+    <form th:action="@{/biglietti/acquista/{id}(id=${events.id})}"
+          th:object="${clientForm}"
+          method="post">
+
+        <!-- DATI CLIENTE -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Inserisci i dati richiesti
+            </div>
+            <div class="card-body">
+
+                <div class="mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text" th:field="*{name}" class="form-control">
+                    <div class="text-danger" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cognome</label>
+                    <input type="text" th:field="*{surname}" class="form-control">
+                    <div class="text-danger" th:if="${#fields.hasErrors('surname')}"
+                         th:errors="*{surname}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" th:field="*{mail}" class="form-control">
+                    <div class="text-danger" th:if="${#fields.hasErrors('mail')}"
+                         th:errors="*{mail}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Numero di biglietti</label>
+                    <input type="number" name="quantityOfTickets" value="1" min ="1" th:max="${events.maxTicketsForClient}" class="form-control">
+                    <div class="form-text">Puoi acquistare massimo <span th:text="${events.maxTicketsForClient}"></span></div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Bottone -->
+        <div class="text-end">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-cart-check"></i>
+                Acquista
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+<script th:src="@{/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
