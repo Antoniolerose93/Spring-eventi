@@ -87,7 +87,7 @@ public class EventsService {
         
         existingEvent.setDescription(formEvent.getDescription());
         existingEvent.setPicture(formEvent.getPicture());
-        existingEvent.setTotalTickets(formEvent.getTotalTickets());
+        existingEvent.setDate(formEvent.getDate());
         return eventsRepository.save(existingEvent);
     }
 

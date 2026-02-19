@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.8/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <title>Storico acquisti</title>
+</head>
+<body>
+    <nav th:replace="~{navbar :: navbar('Eventi')}"></nav> 
+        <div class="container mt-5">
+        <!-- Intestazione con Nome Cliente -->
+        <h2>
+            Storico acquisti di: <span th:text="|${client.name} ${client.surname}|"></span>
+        </h2>
+        <hr>
+
+        <!-- Tabella Standard con Bordi Neri -->
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th class="text-center">Evento</th>
+                    <th class="text-center">Data e Luogo</th>
+                    <th class="text-center">Quantità</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Ciclo sulla Mappa: entry.key è l'Oggetto Evento, entry.value è il numero -->
+                <tr th:each="entry : ${mappaBiglietti}">
+                    <!-- Nome Evento -->
+                    <td class="fw-bold" th:text="${entry.key.name}">Nome Concerto</td>
+                    
+                    <!-- Data e Luogo uniti (Literal Substitution) -->
+                    <td class="text-center small">
+                        <i class="bi bi-calendar-event"></i> [[${entry.key.date}]] <br>
+                        <i class="bi bi-geo-alt"></i> [[${entry.key.city}]] - [[${entry.key.location}]]
+                    </td>
+                    <!-- QUANTITÀ: Il valore della mappa -->
+                    <td class="text-center">
+                        <span class="badge bg-dark fs-6 px-3" th:text="${entry.value}">0</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Messaggio se non ci sono biglietti -->
+        <div th:if="${#maps.isEmpty(mappaBiglietti)}" class="alert alert-info text-center">
+            Questo cliente non ha ancora effettuato acquisti.
+        </div>
+    </div>
+    <script th:src="@{/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

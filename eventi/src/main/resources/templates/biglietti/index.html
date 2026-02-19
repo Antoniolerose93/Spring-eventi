@@ -27,8 +27,8 @@
                                         <div class="col">
                                             <p class="card-text"><strong>Posti disponibili: </strong>
                                              <span th:with= "rimasti=${event.totalTickets - event.soldTickets}" 
-                                            th:text= "${rimasti}"
-                                            th:class="${rimasti lt 10} ? 'text-danger fw-bold' : 'text-dark'"></span></p>
+                                                th:text= "${rimasti}"
+                                                th:class="${rimasti lt 10} ? 'text-danger fw-bold' : 'text-dark'"></span></p>
                                         </div>
                                         <div class="col">
                                             <p class="card-text"><strong>Evento: </strong><span th:text= " ${event.name}"></span></p>
@@ -43,7 +43,12 @@
                                         </div>
                                     </div>
                                     <div class="row mb-2">
-                                        <a th:href="@{/biglietti/acquista/{id}(id=${event.id})}" class="btn btn-success">Acquista biglietti</a>
+                                        <div class="col">
+                                            <p class ="card-text"><strong>Data: </strong><span th:text=" ${event.date}"></span></p>
+                                        </div>
+                                        <div class="col">
+                                            <a th:href="@{/biglietti/acquista/{id}(id=${event.id})}" class="btn btn-success">Acquista biglietti</a>
+                                        </div>
                                     </div>
                             </div>
                         </div>

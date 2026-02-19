@@ -19,7 +19,7 @@
     <section class="container">
         <div class="content">    
             <th:block th:if ="${successMessage !=null}">
-                <div class ="alert alert-warning alert-dismissible fade show" role ="alert">
+                <div class ="alert alert-success alert-dismissible fade show" role ="alert">
                     <span th:text="${successMessage}"></span>
                     <button type ="button" class ="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -63,6 +63,7 @@
                         <th scope="col">Città</th>
                         <th></th><!--  dettaglio -->
                         <th></th><!--  acquisto -->
+                        <th></th><!--  modifica -->
                         <th></th><!--  cancella -->
                     </tr>
                 </thead>
@@ -84,6 +85,13 @@
                                 <i class="bi bi-cart"></i>
                             </a>
                         </td>
+                        <!-- Tasto per la modifica -->
+                        <td>
+                            <a th:href="@{/eventi/edit/{id}(id=${event.id})}" class="btn btn-warning">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                        <!-- Tasto per l'eliminazione -->
                         <td>
                             <a th:href="@{/eventi/delete/{id}(id=${event.id})}" class="btn btn-danger">
                                 <i class="bi bi-trash"></i>

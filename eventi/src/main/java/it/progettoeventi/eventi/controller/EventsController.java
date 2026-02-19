@@ -90,8 +90,6 @@ public class EventsController {
             model.addAttribute("allEventsCategories", eventsCategoriesService.findAll());
             return "eventi/create";
         }
-        
-        
 
     }
    
@@ -114,6 +112,7 @@ public class EventsController {
             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
             if (bindingResult.hasErrors()){
+                model.addAttribute("events", formEvents);
                 return "eventi/edit";
             }
 
