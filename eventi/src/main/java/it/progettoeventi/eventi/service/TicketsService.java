@@ -25,8 +25,7 @@ public class TicketsService {
     private EventsService eventsService;
 
 
-    //creo un metodo per la vendita dei biglietti.
-    //GLi passo il form del cliente, l'eventid e la quantità di biglietti
+    //metodo per la vendita dei biglietti.
     @Transactional
     public void purchaseTicket(Clients clientForm, Integer eventId, Integer quantityOfTickets){
         Events event = eventsService.findById(eventId);
@@ -39,12 +38,12 @@ public class TicketsService {
     //Verifico se esiste il cliente, recupero il metodo getOrCreateClient
         Clients savedClient = clientsService.getOrCreateClient(clientForm);
 
-    for (int i = 0; i < quantityOfTickets; i++){
-        finalizePurchase(event, savedClient);
-    }        
-      clientsService.saveClient(savedClient); // Salva il nuovo numero di biglietti del cliente
-      eventsService.saveEvent(event); // Salva il nuovo numero di biglietti venduti dell'evento
-      ù
+        for (int i = 0; i < quantityOfTickets; i++){
+            finalizePurchase(event, savedClient);
+        }        
+        clientsService.saveClient(savedClient); // Salva il nuovo numero di biglietti del cliente
+        eventsService.saveEvent(event); // Salva il nuovo numero di biglietti venduti dell'evento
+      
     }
 
     public Tickets finalizePurchase (Events event, Clients client){

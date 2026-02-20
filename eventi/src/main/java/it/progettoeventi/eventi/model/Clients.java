@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "clients")
@@ -19,15 +18,12 @@ public class Clients {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @NotBlank(message = "Il nome è obbligatorio")
     private String name;
 
-    @NotNull
     @NotBlank(message = "Il cognome è obbligatorio")
     private String surname;
 
-    @NotNull
     @NotBlank
     private String mail;
     
