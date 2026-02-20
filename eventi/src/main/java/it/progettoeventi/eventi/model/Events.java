@@ -4,6 +4,8 @@ package it.progettoeventi.eventi.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -41,6 +43,14 @@ public class Events {
 
     private String picture;
 
+    @ManyToOne
+    @JoinColumn(name ="id_event_category", nullable = false)
+    @NotNull(message="La categoria dell'evento è obbligatoria")
+    @JsonBackReference
+    private EventsCategories eventCategory;
+
+
+
     @NotBlank(message ="Inserisci il luogo dell'evento")
     private String location;
 
@@ -72,11 +82,7 @@ public class Events {
         this.soldTickets = soldTickets;
     }
 
-    @ManyToOne
-    @JoinColumn(name ="id_event_category", nullable = false)
-    @NotNull(message="La categoria dell'evento è obbligatoria")
-    private EventsCategories eventCategory;
-
+    
  
     public Integer getId() {
         return id;

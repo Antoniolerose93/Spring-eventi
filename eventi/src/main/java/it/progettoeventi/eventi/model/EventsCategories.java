@@ -2,6 +2,8 @@ package it.progettoeventi.eventi.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +26,8 @@ public class EventsCategories {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "eventCategory") 
+    @OneToMany(mappedBy = "eventCategory")
+    @JsonBackReference 
     private List<Events> events;
 
     public Integer getId() {
