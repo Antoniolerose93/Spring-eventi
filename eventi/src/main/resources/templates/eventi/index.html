@@ -47,7 +47,7 @@
                 </div>
                     
                 <!-- inserisci evento -->
-                <div class="col-3 ms-auto text-end">
+                <div class="col-3 ms-auto text-end" sec:authorize="hasAuthority('ADMIN')">
                     <a class="btn btn-primary" th:href="@{/eventi/create}">
                     <i class="bi bi-plus-circle-fill"></i>
                     Inserisci evento</a>
@@ -61,10 +61,10 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Data</th>
                         <th scope="col">Città</th>
-                        <th></th><!--  dettaglio -->
-                        <th></th><!--  acquisto -->
-                        <th></th><!--  modifica -->
-                        <th></th><!--  cancella -->
+                        <th scope="col">Dettagli</th><!--  dettaglio -->
+                        <th scope="col">Acquista</th><!--  acquisto -->
+                        <th sec:authorize="hasAuthority('ADMIN')" scope="col">Modifica</th><!--  modifica -->
+                        <th sec:authorize="hasAuthority('ADMIN')" scope="col">Elimina</th><!--  cancella -->
                     </tr>
                 </thead>
                 <tbody>
@@ -86,12 +86,12 @@
                             </a>
                         </td>
                         <!-- Tasto per la modifica -->
-                        <td>
+                        <td sec:authorize="hasAuthority('ADMIN')">
                             <a th:href="@{/eventi/edit/{id}(id=${event.id})}" class="btn btn-warning">
                                 <i class="bi bi-pencil"></i>
                             </a>
                         </td>
-                        <td>
+                        <td sec:authorize="hasAuthority('ADMIN')">
                         <!-- Tasto per l'eliminazione -->
                             <form th:action="@{/eventi/delete/{id}(id=${event.id})}" method="post" 
                                 onsubmit="return confirm('Sei sicuro di voler eliminare questo evento?');" 

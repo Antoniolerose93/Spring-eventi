@@ -71,7 +71,7 @@
                         <div class="text-danger" th:if="${#fields.hasErrors('maxTicketsForClient')}" th:errors="*{maxTicketsForClient}"></div>
                     </div>
                     <div class="col-4">
-                        <input type="text" class="form-control" th:field="*{picture}"placeholder="Inserisci URL dell'immagine" aria-label ="Inserisci URL dell'immagine">
+                        <input type="text" class="form-control" th:field="*{picture}"placeholder="Inserisci URL dell'immagine" aria-label ="Inserisci URL dell'immagine" required>
                     </div>
                 </div>
                 <div class="row mb-3">

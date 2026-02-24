@@ -1,5 +1,8 @@
+
 .event-img {
-    width: 100%;        /* tutta la larghezza della card */
-    height: 200px;      /* altezza fissa per uniformare tutte le immagini */
-    object-fit: cover;  
+    width: 100%;        
+    height: 250px;      
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }

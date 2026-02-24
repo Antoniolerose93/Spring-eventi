@@ -34,19 +34,14 @@ public class ClientsController {
     @GetMapping("/storico/{id}")
     public String showClientTickets(@PathVariable("id") Integer id, Model model) {
     Clients client = clientsService.findById(id);
-     // 2. CREIAMO LA MAPPA (La stazione di smistamento)
-    // Chiave: l'Evento, Valore: quante volte compare (quantità)
+    
     Map<Events, Integer> group = new HashMap<>();
 
-    // 3. IL CICLO FOR (Senza Stream, come lo volevi tu)
-    // Per ogni biglietto nella lista del cliente...
     if(client.getTickets() !=null){
     
     for (Tickets t : client.getTickets()) {
         Events ev = t.getEvent();
         
-        // Se l'evento è già nella mappa, aumenta il contatore di 1
-        // Se non c'è, parti da 0 e aggiungi 1
         group.put(ev, group.getOrDefault(ev, 0) + 1);
         }
     }
