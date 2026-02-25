@@ -41,7 +41,7 @@ public class EventsController {
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
         Model model) {
 
-        List<Events> events = eventsService.findByFilters(keyword, city, date);
+        List<Events> events = eventsService.findByKeyword(keyword);
 
         model.addAttribute("events", events);
         model.addAttribute("keyword", keyword);

@@ -1,6 +1,5 @@
 package it.progettoeventi.eventi.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,26 +40,6 @@ public class EventsService {
             return eventsRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrCityContainingIgnoreCase(keyword, keyword, keyword);
     }
 
-    public List<Events> findByFilters(String keyword, String city, LocalDate date) {
-    
-        if (keyword != null && !keyword.isBlank()) {
-            return eventsRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrCityContainingIgnoreCase(keyword, keyword, keyword);
-        }
-
-        if (city != null && !city.isBlank() && date != null) {
-            return eventsRepository.findByCityContainingIgnoreCaseAndDate(city, date);
-        }
-
-        if (city != null && !city.isBlank()) {
-            return eventsRepository.findByCityContainingIgnoreCase(city);
-        }
-   
-        if (date != null) {
-            return eventsRepository.findByDate(date);
-        }
-
-            return eventsRepository.findAll();
-    }
 
     public Events findById(Integer id){
         return eventsRepository.findById(id)
@@ -78,18 +57,28 @@ public class EventsService {
     }
     
 
-    public Events editEvents (Integer id, Events formEvent){
-        Events existingEvent = eventsRepository.findById(formEvent.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Evento non trovato"));
-        
-        existingEvent.setDescription(formEvent.getDescription());
-        existingEvent.setPicture(formEvent.getPicture());
-        existingEvent.setDate(formEvent.getDate());
-        return eventsRepository.save(existingEvent);
+   public Events editEvents(Integer id, Events formEvent) {
+    
+    Events existingEvent = eventsRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Evento non trovato "));
+    Optional<Events> duplicate = eventsRepository.findByNameAndCityAndDate(
+        formEvent.getName(), 
+        formEvent.getCity(), 
+        formEvent.getDate()
+    );
+
+    if (duplicate.isPresent() && !duplicate.get().getId().equals(id)) {
+        throw new IllegalArgumentException("Evento già esistente in quella data in quella città");
     }
 
-    public void saveEvent(Events event) {
-    eventsRepository.save(event);
+    existingEvent.setName(formEvent.getName());
+    existingEvent.setCity(formEvent.getCity());
+    existingEvent.setDescription(formEvent.getDescription());
+    existingEvent.setPicture(formEvent.getPicture());
+    existingEvent.setDate(formEvent.getDate());
+    existingEvent.setTotalTickets(formEvent.getTotalTickets());
+
+    return eventsRepository.save(existingEvent);
 }
 
     public void delete(Integer id) {
