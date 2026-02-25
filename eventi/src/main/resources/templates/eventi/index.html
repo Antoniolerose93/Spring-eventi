@@ -35,10 +35,11 @@
         <div class="container">
             <div class="row">
                 <!-- ricerca evento -->
-                <div class="col-3">
+                <div class="col-4">
                     <form method="get" th:action="@{/eventi/}">
                         <div class="input-group mb-3">
                             <input name ="keyword" class="form-control" placeholder="cerca evento" aria-label="cerca evento">
+                            <input type="date" name="date" class="form-control" aria-label="cerca per data">
                                 <button class="btn btn-primary" type="submit">Cerca
                                 <i class="bi bi-search"></i>
                                 </button>
@@ -47,7 +48,7 @@
                 </div>
                     
                 <!-- inserisci evento -->
-                <div class="col-3 ms-auto text-end" sec:authorize="hasAuthority('ADMIN')">
+                <div class="col-4 ms-auto text-end" sec:authorize="hasAuthority('ADMIN')">
                     <a class="btn btn-primary" th:href="@{/eventi/create}">
                     <i class="bi bi-plus-circle-fill"></i>
                     Inserisci evento</a>
