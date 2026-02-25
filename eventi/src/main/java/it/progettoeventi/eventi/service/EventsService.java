@@ -41,28 +41,25 @@ public class EventsService {
             return eventsRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrCityContainingIgnoreCase(keyword, keyword, keyword);
     }
 
-    public List<Events> findByCityAndDate(String city, LocalDate date){
-        if (city == null && date == null){
-            return eventsRepository.findAll();
+    public List<Events> findByFilters(String keyword, String city, LocalDate date) {
+    
+        if (keyword != null && !keyword.isBlank()) {
+            return eventsRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrCityContainingIgnoreCase(keyword, keyword, keyword);
         }
-        if (city !=null && !city.isBlank() && date!= null){
+
+        if (city != null && !city.isBlank() && date != null) {
             return eventsRepository.findByCityContainingIgnoreCaseAndDate(city, date);
         }
-        
-        if(city != null && !city.isBlank() ){
+
+        if (city != null && !city.isBlank()) {
             return eventsRepository.findByCityContainingIgnoreCase(city);
         }
-        return eventsRepository.findByDate(date);
-    }
-
-    public List<Events> findByFilters(String keyword, String city, LocalDate date) {
-        if (keyword != null && !keyword.isBlank()) {
-            return this.findByKeyword(keyword);
-        } 
-        if ((city != null && !city.isBlank()) || date != null) {
-            return this.findByCityAndDate(city, date);
+   
+        if (date != null) {
+            return eventsRepository.findByDate(date);
         }
-            return this.findAll();
+
+            return eventsRepository.findAll();
     }
 
     public Events findById(Integer id){
