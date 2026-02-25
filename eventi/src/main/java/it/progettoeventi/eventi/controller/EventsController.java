@@ -1,10 +1,8 @@
 package it.progettoeventi.eventi.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,17 +35,13 @@ public class EventsController {
     @GetMapping("/")
         public String indexEvents(
         @RequestParam(required = false) String keyword,
-        @RequestParam(required = false) String city,
-        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
         Model model) {
 
         List<Events> events = eventsService.findByKeyword(keyword);
 
         model.addAttribute("events", events);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("city", city);
-        model.addAttribute("date", date);
-
+        
     return "eventi/index";
    
     }

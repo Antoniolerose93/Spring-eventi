@@ -28,10 +28,7 @@ public class EventsCategoriesService {
     }
     
     public Optional<EventsCategories> findByName(String name){
-        if (name == null || name.isBlank()){
-            throw new IllegalArgumentException ("Inserire il nome della categoria");
-        }
-        return eventsCategoriesRepository.findByName(name);
+            return eventsCategoriesRepository.findByName(name);
     }
 
 
